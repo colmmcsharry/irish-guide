@@ -9,12 +9,12 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Dates",
+      href: "/dates",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Chatroom",
+      href: "/chatroom",
     },
     {
       label: "Blog",
@@ -23,6 +23,10 @@ export const siteConfig = {
     {
       label: "About",
       href: "/about",
+    },
+    {
+      label: "Companies",
+      href: "/companies",
     },
   ],
   navMenuItems: [
