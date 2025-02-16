@@ -84,10 +84,9 @@ export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Upcoming&nbsp;</span>
-        <span className={title({ color: "violet" })}>singles&nbsp;</span>
-        <br />
-        <span className={title()}>events in Ireland</span>
+        <span className={title({ size: "lg" })}>Upcoming </span>
+        <span className={title({ color: "violet", size: "lg" })}>singles </span>
+        <span className={title({ size: "lg" })}>events in Ireland</span>
         <div className={date({ class: "mt-4" })}>
           Filter to find events near you
         </div>
@@ -122,8 +121,8 @@ export default function Home() {
                     src={selectedEvent?.imageUrl || ""}
                   />
                 </div>
-                <p className="text-xl mt-4">{selectedEvent?.date}</p>
-                <p className="text-gray-600 mt-2">
+                <p className="mt-4">{selectedEvent?.date}</p>
+                <p className="text-gray-200 mt-2">
                   {selectedEvent?.description}
                 </p>
                 <div className="prose max-w-none mt-4">
@@ -155,13 +154,14 @@ export default function Home() {
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedAndFilteredCards.length > 0 ? (
           sortedAndFilteredCards.map((card, index) => (
-            <div
+            <button
               key={index}
-              className="cursor-pointer h-full"
+              className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0"
+              type="button"
               onClick={() => setSelectedEvent(card)}
             >
               <Card className="pt-4 w-full h-full hover:opacity-80 transition-opacity flex flex-col">
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
                   <h4 className="font-bold text-large mb-2">{card.title}</h4>
                   <p className="text-small mb-2">{card.description}</p>
                   <div className="flex flex-col">
@@ -195,7 +195,7 @@ export default function Home() {
                     </p>
                   </div>
                 </CardHeader>
-                <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full">
+                <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto">
                   <Image
                     alt={card.imageAlt}
                     className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
@@ -204,7 +204,7 @@ export default function Home() {
                   />
                 </CardBody>
               </Card>
-            </div>
+            </button>
           ))
         ) : (
           <div className="text-center p-8 w-full max-w-[800px] bg-content1 rounded-large">
