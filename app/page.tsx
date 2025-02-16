@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Link as HeroLink } from "@heroui/link";
 import { button as buttonStyles } from "@heroui/theme";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Image } from "@heroui/image";
@@ -16,9 +15,8 @@ import { Button } from "@heroui/button";
 import { Select, SelectItem } from "@heroui/select";
 import { useState } from "react";
 
-import { siteConfig } from "@/config/site";
 import { title, date } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { LocationIcon, CalendarIcon, BusinessIcon } from "@/components/icons";
 import { cards } from "@/data/cards";
 
 export default function Home() {
@@ -75,7 +73,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedAndFilteredCards.length > 0 ? (
           sortedAndFilteredCards.map((card, index) => (
             <Link
@@ -85,16 +83,29 @@ export default function Home() {
             >
               <Card className="pt-4 w-full max-w-[800px] hover:opacity-80 transition-opacity">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <h4 className="font-bold text-[22px]">{card.title}</h4>
-                  <div className="flex flex-row gap-4 mb-2">
-                    <span className="text-default-500">{card.displayDate}</span>
-                    {card.time && (
-                      <small className="text-default-500">{card.time}</small>
-                    )}
+                  <h4 className="font-bold text-large mb-2">{card.title}</h4>
+                  <p className="text-small mb-2 font-bold">
+                    {card.description}
+                  </p>
+                  <div className="flex flex-col">
+                    <div className="flex flex-row gap-3">
+                      <small className="text-default-500 flex items-center gap-1">
+                        <CalendarIcon className="text-default-500" size={16} />
+                        {card.displayDate}
+                      </small>
+                      {card.time && (
+                        <small className="text-default-500">{card.time}</small>
+                      )}
+                    </div>
+                    <p className="text-small text-default-500 flex items-center gap-1">
+                      <BusinessIcon className="text-default-500" size={16} />
+                      {card.company}
+                    </p>
+                    <p className="text-small text-default-500 flex items-center gap-1 mb-1">
+                      <LocationIcon className="text-default-500" size={16} />
+                      {card.county}
+                    </p>
                   </div>
-                  <p className=" text-white mb-2">{card.description}</p>
-                  <p className="text-small text-default-500">{card.company}</p>
-                  <p className="text-small text-default-500">{card.county}</p>
                 </CardHeader>
                 <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full">
                   <Image
@@ -139,14 +150,14 @@ export default function Home() {
         >
           Filter Events
         </Button>
-        <HeroLink
+        {/* <HeroLink
           isExternal
           className={buttonStyles({ variant: "bordered", radius: "full" })}
           href={siteConfig.links.github}
         >
           <GithubIcon size={20} />
           GitHub
-        </HeroLink>
+        </HeroLink> */}
       </div>
 
       <Modal isOpen={isOpen} onOpenChange={setIsOpen}>

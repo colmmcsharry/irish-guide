@@ -9,7 +9,7 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Dates",
+      label: "Date Spots",
       href: "/dates",
     },
     {
@@ -39,7 +39,7 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Dates",
+      label: "Date Spots",
       href: "/dates",
     },
     {
