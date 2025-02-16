@@ -13,7 +13,8 @@ import {
 } from "@heroui/modal";
 import { Button } from "@heroui/button";
 import { Select, SelectItem } from "@heroui/select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 import { title, date } from "@/components/primitives";
 import { LocationIcon, CalendarIcon, BusinessIcon } from "@/components/icons";
@@ -23,6 +24,23 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState("all");
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Reset filters when navigating to home page directly (not back/forward)
+  useEffect(() => {
+    if (
+      pathname === "/" &&
+      !(
+        window.performance.getEntriesByType(
+          "navigation",
+        )[0] as PerformanceNavigationTiming
+      ).type.includes("back_forward")
+    ) {
+      setSelectedCounty("all");
+      setSelectedMonth("all");
+    }
+  }, [pathname]);
 
   const counties = [
     "all",
@@ -84,25 +102,34 @@ export default function Home() {
               <Card className="pt-4 w-full max-w-[800px] hover:opacity-80 transition-opacity">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                   <h4 className="font-bold text-large mb-2">{card.title}</h4>
-                  <p className="text-small mb-2 font-bold">
-                    {card.description}
-                  </p>
+                  <p className="text-small mb-2">{card.description}</p>
                   <div className="flex flex-col">
                     <div className="flex flex-row gap-3">
-                      <small className="text-default-500 flex items-center gap-1">
-                        <CalendarIcon className="text-default-500" size={16} />
+                      <p className="text-small text-default-500 flex items-center gap-1">
+                        <CalendarIcon
+                          className="text-default-500 mr-1"
+                          size={16}
+                        />
                         {card.displayDate}
-                      </small>
+                      </p>
                       {card.time && (
-                        <small className="text-default-500">{card.time}</small>
+                        <p className="text-small text-default-500">
+                          {card.time}
+                        </p>
                       )}
                     </div>
                     <p className="text-small text-default-500 flex items-center gap-1">
-                      <BusinessIcon className="text-default-500" size={16} />
+                      <BusinessIcon
+                        className="text-default-500 mr-1"
+                        size={16}
+                      />
                       {card.company}
                     </p>
                     <p className="text-small text-default-500 flex items-center gap-1 mb-1">
-                      <LocationIcon className="text-default-500" size={16} />
+                      <LocationIcon
+                        className="text-default-500 mr-1"
+                        size={16}
+                      />
                       {card.county}
                     </p>
                   </div>
@@ -134,30 +161,44 @@ export default function Home() {
                 setSelectedMonth("all");
               }}
             >
-              Reset Filters
+              Reset
             </Button>
           </div>
         )}
       </div>
 
-      <div className="sticky bottom-0 z-30 w-full bg-background/70 py-4 flex justify-center gap-3 backdrop-blur-sm backdrop-saturate-150 backdrop-filter backdrop-brightness-150 ">
+      <div className="sticky bottom-0 z-30 w-full bg-background/70 py-4 flex flex-col items-center backdrop-blur-sm backdrop-saturate-150 backdrop-filter backdrop-brightness-150">
+        {/* Filter status and reset */}
+        {(selectedCounty !== "all" || selectedMonth !== "all") && (
+          <div className="mb-2 text-small text-default-500 flex items-center gap-2">
+            <span>
+              Filtered by: {selectedCounty !== "all" && selectedCounty}
+              {selectedCounty !== "all" && selectedMonth !== "all" && " in "}
+              {selectedMonth !== "all" && selectedMonth}
+            </span>
+            <Button
+              size="sm"
+              variant="light"
+              onPress={() => {
+                setSelectedCounty("all");
+                setSelectedMonth("all");
+              }}
+            >
+              Reset Filters
+            </Button>
+          </div>
+        )}
+
+        {/* Filter button */}
         <Button
           className={`${buttonStyles({
             radius: "full",
             variant: "shadow",
-          })} bg-gradient-to-b from-[#FF1CF7] to-[#b249f8]`}
+          })} bg-gradient-to-b from-[#b114ac] to-[#8837be]`}
           onPress={() => setIsOpen(true)}
         >
           Filter Events
         </Button>
-        {/* <HeroLink
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </HeroLink> */}
       </div>
 
       <Modal isOpen={isOpen} onOpenChange={setIsOpen}>

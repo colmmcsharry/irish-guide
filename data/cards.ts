@@ -90,8 +90,8 @@ export const cards: CardData[] = [
   {
     title: "Pitch a Friend - Dublin",
     company: "Pitch a Friend: Ireland",
-    date: "2025-02-17",
-    displayDate: "17 Feb 2025",
+    date: "2025-02-23",
+    displayDate: "23 Feb 2025",
     description: "Pitch your friend and get them a date!",
     imageUrl: "/images/pitch-card.jpeg",
     imageAlt: "Backend Beats card background",
