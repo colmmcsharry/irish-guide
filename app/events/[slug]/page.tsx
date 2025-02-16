@@ -4,7 +4,14 @@ import { button as buttonStyles } from "@heroui/theme";
 
 import { cards } from "@/data/cards";
 
-export default function EventPage({ params }: { params: { slug: string } }) {
+interface EventPageProps {
+  params: {
+    slug: string;
+  };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default function EventPage({ params }: EventPageProps) {
   const event = cards.find((card) => card.slug === params.slug);
 
   if (!event) {

@@ -14,7 +14,7 @@ import {
 import { Button } from "@heroui/button";
 import { Select, SelectItem } from "@heroui/select";
 import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { title, date } from "@/components/primitives";
 import { LocationIcon, CalendarIcon, BusinessIcon } from "@/components/icons";
@@ -24,7 +24,6 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState("all");
-  const router = useRouter();
   const pathname = usePathname();
 
   // Reset filters when navigating to home page directly (not back/forward)
@@ -137,7 +136,7 @@ export default function Home() {
                 <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full">
                   <Image
                     alt={card.imageAlt}
-                    className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:max-h-[220px]"
+                    className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
                     src={card.imageUrl}
                     width="full"
                   />
