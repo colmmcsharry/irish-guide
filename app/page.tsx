@@ -24,6 +24,9 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState("all");
+  const [selectedEvent, setSelectedEvent] = useState<(typeof cards)[0] | null>(
+    null,
+  );
   const pathname = usePathname();
 
   // Reset filters when navigating to home page directly (not back/forward)
@@ -90,15 +93,74 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Event details modal */}
+      <Modal
+        classNames={{
+          backdrop: "bg-background/70 backdrop-blur-sm backdrop-saturate-150",
+          base: "bg-content1",
+          body: "py-6",
+          header: "border-b-1 border-default-100",
+          footer: "border-t-1 border-default-100",
+          closeButton: "hover:bg-default-100",
+        }}
+        isOpen={!!selectedEvent}
+        placement="center"
+        size="2xl"
+        onClose={() => setSelectedEvent(null)}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                <h2 className="text-xl font-bold">{selectedEvent?.title}</h2>
+              </ModalHeader>
+              <ModalBody className="max-h-[70vh] overflow-y-auto">
+                <div className="w-full">
+                  <Image
+                    alt={selectedEvent?.imageAlt || ""}
+                    className="w-full min-w-[100%] mx-auto object-cover rounded-lg"
+                    src={selectedEvent?.imageUrl || ""}
+                  />
+                </div>
+                <p className="text-xl mt-4">{selectedEvent?.date}</p>
+                <p className="text-gray-600 mt-2">
+                  {selectedEvent?.description}
+                </p>
+                <div className="prose max-w-none mt-4">
+                  <p>{selectedEvent?.longDescription}</p>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                {selectedEvent?.ticketUrl && (
+                  <Button
+                    as={Link}
+                    color="primary"
+                    href={selectedEvent.ticketUrl}
+                    radius="full"
+                    target="_blank"
+                    variant="shadow"
+                  >
+                    Get Tickets
+                  </Button>
+                )}
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedAndFilteredCards.length > 0 ? (
           sortedAndFilteredCards.map((card, index) => (
-            <Link
+            <div
               key={index}
-              className="cursor-pointer"
-              href={`/events/${card.slug}`}
+              className="cursor-pointer h-full"
+              onClick={() => setSelectedEvent(card)}
             >
-              <Card className="pt-4 w-full max-w-[800px] hover:opacity-80 transition-opacity">
+              <Card className="pt-4 w-full h-full hover:opacity-80 transition-opacity flex flex-col">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                   <h4 className="font-bold text-large mb-2">{card.title}</h4>
                   <p className="text-small mb-2">{card.description}</p>
@@ -142,7 +204,7 @@ export default function Home() {
                   />
                 </CardBody>
               </Card>
-            </Link>
+            </div>
           ))
         ) : (
           <div className="text-center p-8 w-full max-w-[800px] bg-content1 rounded-large">

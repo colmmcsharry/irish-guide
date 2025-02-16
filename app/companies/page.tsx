@@ -16,10 +16,10 @@ export default function CompaniesPage() {
               Pitch a Friend
             </Link>
             <p className="mt-2">
-              Pitch a Friend is a viral new dating craze that has taken has come
-              from America to Ireland. At these events, friends prepare and
-              present a 3 minute pitch about a single person they know, and gets
-              them dates from the audience
+              Pitch a Friend is a viral new dating craze that has come from
+              America to Ireland. At these events, friends prepare and present a
+              3 minute pitch about a single person they know, and gets them
+              dates from the audience.
             </p>
           </li>
           <li>
