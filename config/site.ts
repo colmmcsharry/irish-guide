@@ -28,6 +28,10 @@ export const siteConfig = {
       label: "Companies",
       href: "/companies",
     },
+    {
+      label: "Podcasts",
+      href: "/podcasts",
+    },
   ],
   navMenuItems: [
     {

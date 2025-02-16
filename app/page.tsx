@@ -46,14 +46,14 @@ export default function Home() {
         </HeroLink>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card, index) => (
           <Link
             key={index}
             className="cursor-pointer"
             href={`/events/${card.slug}`}
           >
-            <Card className="pt-4 max-w-[300px] hover:opacity-80 transition-opacity">
+            <Card className="pt-4 w-full max-w-[700px] hover:opacity-80 transition-opacity">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                 <p className="text-tiny uppercase font-bold">
                   {card.description}
@@ -64,7 +64,7 @@ export default function Home() {
               <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full">
                 <Image
                   alt={card.imageAlt}
-                  className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px]"
+                  className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[225px] md:max-h-[200px]"
                   src={card.imageUrl}
                   width="full"
                 />
