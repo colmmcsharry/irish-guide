@@ -1,17 +1,24 @@
 import { Image } from "@heroui/image";
 import { Link } from "@heroui/link";
 import { button as buttonStyles } from "@heroui/theme";
+import { Metadata } from "next";
 
 import { cards } from "@/data/cards";
 
-interface EventPageProps {
-  params: {
-    slug: string;
+type Props = {
+  params: { slug: string };
+};
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return {
+    title: `Event: ${params.slug}`,
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function EventPage({ params }: EventPageProps) {
+// Mark the page component as async
+export default async function EventPage({ params }: Props) {
+  // Find the card that matches the slug
   const event = cards.find((card) => card.slug === params.slug);
 
   if (!event) {
