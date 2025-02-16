@@ -5,20 +5,23 @@ interface CardData {
   imageUrl: string;
   imageAlt: string;
   slug: string;
+  county: string;
   longDescription?: string;
   ticketUrl?: string;
 }
 
 export const cards: CardData[] = [
   {
-    title: "Random Fun Event",
+    title: "Frontend Radio",
     date: "14 Feb 2025",
     description: "Daily Mix",
     imageUrl: "/images/pitch-card.jpeg",
     imageAlt: "Frontend Radio card background",
     slug: "frontend-radio",
-    longDescription: "Join us for an evening of amazing frontend development discussion...",
-    ticketUrl: "https://tickets.example.com/frontend-radio"
+    county: "Longford",
+    longDescription:
+      "Join us for an evening of amazing frontend development discussion...",
+    ticketUrl: "https://tickets.example.com/frontend-radio",
   },
   {
     title: "Pitch a Friend - Dublin",
@@ -27,8 +30,10 @@ export const cards: CardData[] = [
     imageUrl: "/images/pitch-card.jpeg",
     imageAlt: "Backend Beats card background",
     slug: "pitch-a-friend-dublin",
-    longDescription: "Join us for an evening of amazing backend development discussion...",
-    ticketUrl: "https://tickets.example.com/pitch-a-friend-dublin"
+    county: "Dublin",
+    longDescription:
+      "Join us for an evening of amazing backend development discussion...",
+    ticketUrl: "https://tickets.example.com/pitch-a-friend-dublin",
   },
   {
     title: "Random Fun Event",
@@ -37,8 +42,10 @@ export const cards: CardData[] = [
     imageUrl: "https://heroui.com/images/hero-card-complete.jpeg",
     imageAlt: "Frontend Radio card background",
     slug: "random-fun-event",
-    longDescription: "Join us for an evening of amazing frontend development discussion...",
-    ticketUrl: "https://tickets.example.com/random-fun-event"
+    county: "Galway",
+    longDescription:
+      "Join us for an evening of amazing frontend development discussion...",
+    ticketUrl: "https://tickets.example.com/random-fun-event",
   },
   {
     title: "Pitch a Friend - Dublin",
@@ -47,8 +54,10 @@ export const cards: CardData[] = [
     imageUrl: "/images/pitch-card.jpeg",
     imageAlt: "Backend Beats card background",
     slug: "pitch-a-friend-dublin",
-    longDescription: "Join us for an evening of amazing backend development discussion...",
-    ticketUrl: "https://tickets.example.com/pitch-a-friend-dublin"
+    county: "Cork",
+    longDescription:
+      "Join us for an evening of amazing backend development discussion...",
+    ticketUrl: "https://tickets.example.com/pitch-a-friend-dublin",
   },
   // Add more cards as needed
-]; 
+];
