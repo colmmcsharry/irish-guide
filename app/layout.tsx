@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import { SiteStats } from "@/components/SiteStats";
 
 export const metadata: Metadata = {
   title: {
@@ -59,6 +60,7 @@ export default function RootLayout({
                 <p className="text-primary">HeroUI</p> */}
                 {/* put my credentials and link here */}
               </Link>
+              <SiteStats />
             </footer>
           </div>
         </Providers>
