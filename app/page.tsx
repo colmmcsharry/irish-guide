@@ -140,7 +140,12 @@ export default function Home() {
                     Get Tickets
                   </Button>
                 )}
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  className="bg-gradient-to-b from-[#FF1CF7] to-[#b249f8]"
+                  color="primary"
+                  variant="shadow"
+                  onPress={onClose}
+                >
                   Close
                 </Button>
               </ModalFooter>
@@ -152,9 +157,10 @@ export default function Home() {
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedAndFilteredCards.length > 0 ? (
           sortedAndFilteredCards.map((card, index) => (
-            <div
+            <button
               key={index}
-              className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0"
+              className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0 active:opacity-100 focus:outline-none tap-highlight-transparent"
+              style={{ WebkitTapHighlightColor: "transparent" }}
               onClick={() => setSelectedEvent(card)}
             >
               <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
@@ -203,7 +209,7 @@ export default function Home() {
                   />
                 </CardBody>
               </Card>
-            </div>
+            </button>
           ))
         ) : (
           <div className="text-center p-8 w-full max-w-[800px] bg-content1 rounded-large">
