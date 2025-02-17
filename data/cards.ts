@@ -101,7 +101,7 @@ export const cards: CardData[] = [
     slug: "pitch-a-friend-dublin",
     county: "Dublin",
     longDescription:
-      "Pitch a Friend is a viral new dating craze that has taken has come from America to Ireland. At these events, friends prepare and present a 3 minute pitch about a single person they know, and gets them dates from the audience.",
+      "Pitch a Friend is a viral new dating craze has come from America to Ireland. At these events, friends prepare and present a 3 minute pitch about a single person they know, and gets them dates from the audience.",
     ticketUrl:
       "https://www.eventbrite.ie/e/pitch-a-friend-dublin-2-tickets-1115903751159?aff=erelexpmlt",
   },
