@@ -109,7 +109,7 @@ export const Navbar = () => {
         className="basis-1/5 lg:basis-full flex justify-end"
         justify="end"
       >
-        <NavbarItem className="mr-4 lg:mr-0">
+        <NavbarItem className="mr-4 pt-1 lg:mr-0">
           <ThemeSwitch />
         </NavbarItem>
         <NavbarMenuToggle className="lg:hidden" />
