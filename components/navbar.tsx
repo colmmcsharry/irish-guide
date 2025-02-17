@@ -51,7 +51,7 @@ export const Navbar = () => {
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
+        <NavbarBrand as="li" className="gap-3 max-w-fit min-w-[52px]">
           <NextLink
             className="flex justify-start rounded-full items-center gap-1"
             href="/"

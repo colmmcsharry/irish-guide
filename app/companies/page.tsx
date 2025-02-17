@@ -1,12 +1,14 @@
 import Link from "next/link";
 
-import { title } from "@/components/primitives";
-
 export default function CompaniesPage() {
   return (
     <div>
-      <h1 className={title()}>Companies</h1>
-      <div className="flex flex-col gap-4">
+      <h1 className="text-5xl mb-8 font-bold">Companies</h1>
+      <p>
+        Here are some of the companies putting on regular singles events in
+        Ireland.
+      </p>
+      <div className="flex flex-col gap-4 max-w-4xl px-4 py-8">
         <ul className="list-disc">
           <li className="my-8">
             <Link
@@ -22,7 +24,7 @@ export default function CompaniesPage() {
               dates from the audience.
             </p>
           </li>
-          <li>
+          <li className="my-8">
             <Link
               className="text-2xl my-4 font-bold"
               href="/companies/your-friend-my-friend"
@@ -33,6 +35,18 @@ export default function CompaniesPage() {
               Your Friend My Friend is an Irish dating company, known for their
               speed dating events and singles Run Clubs (followed by pints and
               pizza!).
+            </p>
+          </li>
+          <li className="my-8">
+            <Link
+              className="text-2xl my-4 font-bold"
+              href="/companies/your-friend-my-friend"
+            >
+              Katch
+            </Link>
+            <p className="mt-2">
+              Katch is a membership-based app and dating company that runs
+              regular speed dating events in Ireland, as well as online events.
             </p>
           </li>
         </ul>
