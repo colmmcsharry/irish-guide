@@ -122,9 +122,7 @@ export default function Home() {
                   />
                 </div>
                 <p className="mt-4">{selectedEvent?.date}</p>
-                <p className="text-gray-200 mt-2">
-                  {selectedEvent?.description}
-                </p>
+                <p className="mt-2">{selectedEvent?.description}</p>
                 <div className="prose max-w-none mt-4">
                   <p>{selectedEvent?.longDescription}</p>
                 </div>
@@ -154,16 +152,17 @@ export default function Home() {
       <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedAndFilteredCards.length > 0 ? (
           sortedAndFilteredCards.map((card, index) => (
-            <button
+            <div
               key={index}
               className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0"
-              type="button"
               onClick={() => setSelectedEvent(card)}
             >
               <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
                   <h4 className="font-bold text-large mb-2">{card.title}</h4>
-                  <p className="text-small mb-2">{card.description}</p>
+                  <p className="text-small mb-2 text-default-500">
+                    {card.description}
+                  </p>
                   <div className="flex flex-col">
                     <div className="flex flex-row gap-3">
                       <p className="text-small text-default-500 flex items-center gap-1">
@@ -180,18 +179,18 @@ export default function Home() {
                       )}
                     </div>
                     <p className="text-small text-default-500 flex items-center gap-1">
-                      <BusinessIcon
-                        className="text-default-500 mr-1"
-                        size={16}
-                      />
-                      {card.company}
-                    </p>
-                    <p className="text-small text-default-500 flex items-center gap-1 mb-1">
                       <LocationIcon
                         className="text-default-500 mr-1"
                         size={16}
                       />
                       {card.county}
+                    </p>
+                    <p className="text-small text-default-500 flex items-center gap-1 mb-1">
+                      <BusinessIcon
+                        className="text-default-500 mr-1"
+                        size={16}
+                      />
+                      {card.company}
                     </p>
                   </div>
                 </CardHeader>
@@ -204,7 +203,7 @@ export default function Home() {
                   />
                 </CardBody>
               </Card>
-            </button>
+            </div>
           ))
         ) : (
           <div className="text-center p-8 w-full max-w-[800px] bg-content1 rounded-large">
