@@ -114,10 +114,10 @@ export default function Home() {
                 <h2 className="text-xl font-bold">{selectedEvent?.title}</h2>
               </ModalHeader>
               <ModalBody className="max-h-[70vh] overflow-y-auto">
-                <div className="w-full">
+                <div className="w-full !max-w-full">
                   <Image
                     alt={selectedEvent?.imageAlt || ""}
-                    className="w-full min-w-[100%] mx-auto object-cover rounded-lg"
+                    className="w-full min-w-full mx-auto object-cover rounded-lg max-w-full"
                     src={selectedEvent?.imageUrl || ""}
                   />
                 </div>
@@ -160,7 +160,7 @@ export default function Home() {
               type="button"
               onClick={() => setSelectedEvent(card)}
             >
-              <Card className="pt-4 w-full h-full hover:opacity-80 transition-opacity flex flex-col">
+              <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
                   <h4 className="font-bold text-large mb-2">{card.title}</h4>
                   <p className="text-small mb-2">{card.description}</p>
@@ -195,10 +195,10 @@ export default function Home() {
                     </p>
                   </div>
                 </CardHeader>
-                <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto">
+                <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto flex justify-end">
                   <Image
                     alt={card.imageAlt}
-                    className="object-cover rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
+                    className="object-cover bottom-0 rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
                     src={card.imageUrl}
                     width="full"
                   />
