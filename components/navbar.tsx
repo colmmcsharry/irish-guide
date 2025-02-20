@@ -80,6 +80,18 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
+          <NavbarItem>
+            <NextLink
+              className={clsx(
+                linkStyles({ color: "foreground" }),
+                "data-[active=true]:text-primary data-[active=true]:font-medium",
+              )}
+              color="foreground"
+              href="/submit-event"
+            >
+              Submit Event
+            </NextLink>
+          </NavbarItem>
         </ul>
       </NavbarContent>
 
@@ -130,6 +142,16 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+          <NavbarMenuItem>
+            <Link
+              color="foreground"
+              href="/submit-event"
+              size="lg"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Submit Event
+            </Link>
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
     </HeroUINavbar>
