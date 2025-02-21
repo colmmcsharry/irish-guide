@@ -231,7 +231,7 @@ export default function Home() {
             </button>
           ))
         ) : (
-          <div className="text-center p-8 w-full max-w-[800px] bg-content1 rounded-large">
+          <div className="text-center p-8 w-full max-w-[800px] bg-content1 col-span-full rounded-large">
             <h3 className="text-xl font-semibold mb-2">No events found</h3>
             <p className="text-default-500">
               No events match your current filter settings. Try adjusting your
