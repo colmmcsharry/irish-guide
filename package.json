@@ -10,7 +10,7 @@
  },
  "dependencies": {
   "@heroui/button": "2.2.9",
-  "@heroui/card": "^2.2.10",
+  "@heroui/card": "^2.2.13",
   "@heroui/code": "2.2.6",
   "@heroui/image": "^2.2.6",
   "@heroui/input": "2.4.9",
@@ -22,7 +22,7 @@
   "@heroui/select": "^2.4.10",
   "@heroui/snippet": "2.2.10",
   "@heroui/switch": "2.2.8",
-  "@heroui/system": "2.4.6",
+  "@heroui/system": "^2.4.7",
   "@heroui/theme": "2.4.5",
   "@react-aria/ssr": "3.9.7",
   "@react-aria/visually-hidden": "3.8.18",
