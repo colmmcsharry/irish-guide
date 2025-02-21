@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 
 import { pusherClient } from "@/config/pusher";
+import { db } from "@/config/firebase";
 
 interface Message {
   message: string;
@@ -14,18 +16,45 @@ export default function ChatRoom() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const channelRef = useRef<any>(null);
 
+  // Load previous messages
   useEffect(() => {
-    // Ask for username if not set
+    async function loadMessages() {
+      try {
+        const messagesRef = collection(db, "messages");
+        const q = query(
+          messagesRef,
+          orderBy("timestamp", "desc"),
+          limit(50), // Limit to last 50 messages
+        );
+
+        const querySnapshot = await getDocs(q);
+        const loadedMessages = querySnapshot.docs
+          .map((doc) => doc.data() as Message)
+          .reverse(); // Reverse to show oldest first
+
+        setMessages(loadedMessages);
+      } catch (error) {
+        console.error("Error loading messages:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadMessages();
+  }, []);
+
+  // Pusher subscription
+  useEffect(() => {
     if (!username) {
       const name = prompt("Please enter your username:");
 
       if (name) setUsername(name);
     }
 
-    // Subscribe to Pusher channel only if not already subscribed
     if (!channelRef.current) {
       channelRef.current = pusherClient.subscribe("chat");
       channelRef.current.bind("message", (data: Message) => {
@@ -34,7 +63,6 @@ export default function ChatRoom() {
     }
 
     return () => {
-      // Cleanup subscription only when component unmounts
       if (channelRef.current) {
         channelRef.current.unbind("message");
         pusherClient.unsubscribe("chat");
@@ -70,6 +98,10 @@ export default function ChatRoom() {
     }
   };
 
+  if (loading) {
+    return <div className="text-center">Loading messages...</div>;
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="bg-blue-100 rounded-lg shadow-md">
@@ -81,9 +113,11 @@ export default function ChatRoom() {
                 msg.username === username ? "bg-white ml-auto" : "bg-white"
               } max-w-[70%]`}
             >
-              <p className="font-semibold text-black text-sm">{msg.username}</p>
+              <p className="font-semibold text-gray-800 text-sm">
+                {msg.username}
+              </p>
               <p className="text-black my-2">{msg.message}</p>
-              <p className="text-xs text-black">
+              <p className="text-xs text-gray-500">
                 {new Date(msg.timestamp).toLocaleTimeString()}
               </p>
             </div>
