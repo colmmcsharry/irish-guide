@@ -5,8 +5,8 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className={title({ class: "text-left mb-6" })}>About</h1>
       <h2 className="text-left mb-6 my-8">
-        Everyone is sick of the apps, this will help you see what else is out
-        there.
+        Everyone is sick of the apps, this site will help you see what else is
+        out there.
       </h2>
 
       <div className="space-y-4 text-left text-default-600">
