@@ -1,4 +1,4 @@
-interface CardData {
+export interface CardData {
   title: string;
   company: string;
   description: string;

@@ -18,7 +18,8 @@ import { usePathname } from "next/navigation";
 
 import { title, date } from "@/components/primitives";
 import { LocationIcon, CalendarIcon, BusinessIcon } from "@/components/icons";
-import { cards } from "@/data/cards";
+import { cards, CardData } from "@/data/cards";
+import { getFirestoreEvents } from "@/utils/firebase";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,8 @@ export default function Home() {
     null,
   );
   const pathname = usePathname();
+  const [allEvents, setAllEvents] = useState<CardData[]>(cards);
+  const [loading, setLoading] = useState(true);
 
   // Reset filters when navigating to home page directly (not back/forward)
   useEffect(() => {
@@ -43,6 +46,22 @@ export default function Home() {
       setSelectedMonth("all");
     }
   }, [pathname]);
+
+  useEffect(() => {
+    async function loadFirestoreEvents() {
+      try {
+        const firestoreEvents = await getFirestoreEvents();
+
+        setAllEvents([...cards, ...firestoreEvents]);
+      } catch (error) {
+        console.error("Error loading Firestore events:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadFirestoreEvents();
+  }, []);
 
   const counties = [
     "all",
@@ -67,7 +86,7 @@ export default function Home() {
     return new Date(`${a} 1`).getTime() - new Date(`${b} 1`).getTime();
   });
 
-  const sortedAndFilteredCards = [...cards]
+  const sortedAndFilteredCards = [...allEvents]
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .filter((card) => {
       const matchesCounty =
