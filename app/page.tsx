@@ -228,11 +228,14 @@ export default function Home() {
                     as={Link}
                     color="primary"
                     href={selectedEvent.ticketUrl}
+                    isDisabled={new Date(selectedEvent.date) < new Date()}
                     radius="full"
                     target="_blank"
                     variant="shadow"
                   >
-                    Get Tickets
+                    {new Date(selectedEvent.date) < new Date()
+                      ? "Event Ended"
+                      : "Get Tickets"}
                   </Button>
                 )}
                 <Button
