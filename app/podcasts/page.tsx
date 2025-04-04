@@ -5,7 +5,7 @@ export default function PodcastsPage() {
 
       <div className="space-y-6 text-left">
         <div>
-          <h2 className="text-2xl font-bold mb-3 text-violet-600">Dublin</h2>
+          <h2 className="text-2xl font-bold mb-3 text-violet-400">Dublin</h2>
           <p className="text-lg text-default-600 mb-4 leading-relaxed">
             Ireland has many dating-related podcasts. Here are some of the best
           </p>
@@ -14,7 +14,7 @@ export default function PodcastsPage() {
         <ul className="space-y-3">
           <li className="text-lg">
             <a
-              className="text-violet-600 hover:text-violet-700 transition-colors"
+              className="text-blue-300 hover:text-blue-500 transition-colors"
               href="https://www.datersgonna.com/"
               rel="noopener noreferrer"
               target="_blank"
@@ -24,7 +24,7 @@ export default function PodcastsPage() {
           </li>
           <li className="text-lg">
             <a
-              className="text-violet-600 hover:text-violet-700 transition-colors"
+              className="text-blue-300 hover:text-blue-500 transition-colors"
               href="https://www.datingpodcast.ie/"
               rel="noopener noreferrer"
               target="_blank"
