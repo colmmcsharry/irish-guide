@@ -86,9 +86,14 @@ export default function Home() {
     return new Date(`${a} 1`).getTime() - new Date(`${b} 1`).getTime();
   });
 
-  const sortedAndFilteredCards = [...allEvents]
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .filter((card) => {
+  // Split filtered events into upcoming and past
+  const filterAndSortEvents = (events: CardData[]) => {
+    // Set the time to the beginning of the day for accurate date comparison
+    const currentDate = new Date();
+
+    currentDate.setHours(0, 0, 0, 0);
+
+    const filtered = events.filter((card) => {
       const matchesCounty =
         selectedCounty === "all" || card.county === selectedCounty;
       const cardMonth = new Date(card.date).toLocaleString("default", {
@@ -99,6 +104,77 @@ export default function Home() {
 
       return matchesCounty && matchesMonth;
     });
+
+    const upcoming = filtered
+      .filter((card) => {
+        const eventDate = new Date(card.date);
+
+        eventDate.setHours(0, 0, 0, 0);
+
+        return eventDate >= currentDate;
+      })
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    const past = filtered
+      .filter((card) => {
+        const eventDate = new Date(card.date);
+
+        eventDate.setHours(0, 0, 0, 0);
+
+        return eventDate < currentDate;
+      })
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    return { upcoming, past };
+  };
+
+  const { upcoming: upcomingEvents, past: pastEvents } =
+    filterAndSortEvents(allEvents);
+  const hasFilteredEvents = upcomingEvents.length > 0 || pastEvents.length > 0;
+
+  // Event card renderer function to avoid duplication
+  const renderEventCard = (card: CardData, key: string | number) => (
+    <button
+      key={key}
+      className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0 active:opacity-100 focus:outline-none tap-highlight-transparent"
+      style={{ WebkitTapHighlightColor: "transparent" }}
+      onClick={() => setSelectedEvent(card)}
+    >
+      <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
+        <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
+          <h4 className="font-bold text-large mb-2">{card.title}</h4>
+          <p className="text-small mb-2 text-default-500">{card.description}</p>
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-3">
+              <p className="text-small text-default-500 flex items-center gap-1">
+                <CalendarIcon className="text-default-500 mr-1" size={16} />
+                {card.displayDate}
+              </p>
+              {card.time && (
+                <p className="text-small text-default-500">{card.time}</p>
+              )}
+            </div>
+            <p className="text-small text-default-500 flex items-center gap-1">
+              <LocationIcon className="text-default-500 mr-1" size={16} />
+              {card.county}
+            </p>
+            <p className="text-small text-default-500 flex items-center gap-1 mb-1">
+              <BusinessIcon className="text-default-500 mr-1" size={16} />
+              {card.company}
+            </p>
+          </div>
+        </CardHeader>
+        <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto flex justify-end">
+          <Image
+            alt={card.imageAlt}
+            className="object-cover bottom-0 rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
+            src={card.imageUrl}
+            width="full"
+          />
+        </CardBody>
+      </Card>
+    </button>
+  );
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -173,84 +249,63 @@ export default function Home() {
         </ModalContent>
       </Modal>
 
-      <div className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedAndFilteredCards.length > 0 ? (
-          sortedAndFilteredCards.map((card, index) => (
-            <button
-              key={index}
-              className="cursor-pointer h-full text-left w-full border-none bg-transparent p-0 active:opacity-100 focus:outline-none tap-highlight-transparent"
-              style={{ WebkitTapHighlightColor: "transparent" }}
-              onClick={() => setSelectedEvent(card)}
-            >
-              <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
-                  <h4 className="font-bold text-large mb-2">{card.title}</h4>
-                  <p className="text-small mb-2 text-default-500">
-                    {card.description}
-                  </p>
-                  <div className="flex flex-col">
-                    <div className="flex flex-row gap-3">
-                      <p className="text-small text-default-500 flex items-center gap-1">
-                        <CalendarIcon
-                          className="text-default-500 mr-1"
-                          size={16}
-                        />
-                        {card.displayDate}
-                      </p>
-                      {card.time && (
-                        <p className="text-small text-default-500">
-                          {card.time}
-                        </p>
-                      )}
-                    </div>
-                    <p className="text-small text-default-500 flex items-center gap-1">
-                      <LocationIcon
-                        className="text-default-500 mr-1"
-                        size={16}
-                      />
-                      {card.county}
-                    </p>
-                    <p className="text-small text-default-500 flex items-center gap-1 mb-1">
-                      <BusinessIcon
-                        className="text-default-500 mr-1"
-                        size={16}
-                      />
-                      {card.company}
-                    </p>
-                  </div>
-                </CardHeader>
-                <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto flex justify-end">
-                  <Image
-                    alt={card.imageAlt}
-                    className="object-cover bottom-0 rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
-                    src={card.imageUrl}
-                    width="full"
-                  />
-                </CardBody>
-              </Card>
-            </button>
-          ))
-        ) : (
-          <div className="text-center p-8 w-full max-w-[800px] bg-content1 col-span-full rounded-large">
-            <h3 className="text-xl font-semibold mb-2">No events found</h3>
-            <p className="text-default-500">
-              No events match your current filter settings. Try adjusting your
-              filters or checking back later for new events.
-            </p>
-            <Button
-              className="mt-4"
-              color="primary"
-              variant="light"
-              onPress={() => {
-                setSelectedCounty("all");
-                setSelectedMonth("all");
-              }}
-            >
-              Reset
-            </Button>
+      {/* Upcoming Events Section */}
+      {upcomingEvents.length > 0 && (
+        <>
+          <h2
+            className={title({
+              size: "sm",
+              class: "mt-8 mb-4 self-start pl-4",
+            })}
+          >
+            Upcoming Events
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {upcomingEvents.map((card, index) => renderEventCard(card, index))}
           </div>
-        )}
-      </div>
+        </>
+      )}
+
+      {/* Past Events Section */}
+      {pastEvents.length > 0 && (
+        <>
+          <h2
+            className={title({
+              size: "sm",
+              class: "mt-12 mb-4 self-start pl-4",
+            })}
+          >
+            Past Events
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {pastEvents.map((card, index) =>
+              renderEventCard(card, `past-${index}`),
+            )}
+          </div>
+        </>
+      )}
+
+      {/* No events message */}
+      {!hasFilteredEvents && (
+        <div className="text-center p-8 w-full max-w-[800px] bg-content1 col-span-full rounded-large">
+          <h3 className="text-xl font-semibold mb-2">No events found</h3>
+          <p className="text-default-500">
+            No events match your current filter settings. Try adjusting your
+            filters or checking back later for new events.
+          </p>
+          <Button
+            className="mt-4"
+            color="primary"
+            variant="light"
+            onPress={() => {
+              setSelectedCounty("all");
+              setSelectedMonth("all");
+            }}
+          >
+            Reset
+          </Button>
+        </div>
+      )}
 
       <div className="sticky bottom-0 z-30 w-full bg-background/70 py-4 flex flex-col items-center backdrop-blur-sm backdrop-saturate-150 backdrop-filter backdrop-brightness-150">
         {/* Filter status and reset */}
@@ -279,7 +334,7 @@ export default function Home() {
           className={`${buttonStyles({
             radius: "full",
             variant: "shadow",
-          })} bg-gradient-to-b from-[#b114ac] to-[#8837be]`}
+          })} text-white font-bold bg-gradient-to-b from-[#b114ac] to-[#8837be]`}
           onPress={() => setIsOpen(true)}
         >
           Filter Events

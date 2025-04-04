@@ -13,6 +13,25 @@ export interface CardData {
   ticketUrl?: string;
 }
 
+// Function to split cards into upcoming and past events
+export const getFilteredEvents = () => {
+  const currentDate = new Date();
+
+  const upcomingEvents = cards.filter((event) => {
+    const eventDate = new Date(event.date);
+
+    return eventDate >= currentDate;
+  });
+
+  const pastEvents = cards.filter((event) => {
+    const eventDate = new Date(event.date);
+
+    return eventDate < currentDate;
+  });
+
+  return { upcomingEvents, pastEvents };
+};
+
 export const cards: CardData[] = [
   {
     title: "Singles Run Club, Salthill",
@@ -90,7 +109,7 @@ export const cards: CardData[] = [
     ticketUrl: "https://tickets.example.com/frontend-radio",
   },
   {
-    title: "Pitch a Friend - Dublin",
+    title: "Pitch a Friend #2 - Dublin",
     company: "Pitch a Friend: Ireland",
     date: "2025-02-23",
     displayDate: "23 Feb 2025",
@@ -104,6 +123,22 @@ export const cards: CardData[] = [
       "Pitch a Friend is a viral new dating craze has come from America to Ireland. At these events, friends prepare and present a 3 minute pitch about a single person they know, and gets them dates from the audience.",
     ticketUrl:
       "https://www.eventbrite.ie/e/pitch-a-friend-dublin-2-tickets-1115903751159?aff=erelexpmlt",
+  },
+  {
+    title: "Pitch a Friend #3 - Dublin",
+    company: "Pitch a Friend: Ireland",
+    date: "2025-04-04",
+    displayDate: "4 Apr 2025",
+    description:
+      "Pitch your friend with a 3-minute presentation and get them a date!",
+    imageUrl: "/images/pitch-card.jpeg",
+    imageAlt: "Backend Beats card background",
+    slug: "pitch-a-friend-dublin",
+    county: "Dublin",
+    longDescription:
+      "Pitch a Friend is a viral new dating craze has come from America to Ireland. At these events, friends prepare and present a 3 minute pitch about a single person they know, and gets them dates from the audience.",
+    ticketUrl:
+      "https://www.eventbrite.ie/e/pitch-a-friend-dublin-3-tickets-1263799019889",
   },
   {
     title: "Singles Aran Island Weekend Experience",
