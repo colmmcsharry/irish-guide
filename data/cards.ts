@@ -130,7 +130,7 @@ export const cards: CardData[] = [
     date: "2025-04-04",
     displayDate: "4 Apr 2025",
     description:
-      "Pitch your friend with a 3-minute presentation and get them a date!",
+      "Pitch your friend with a 3-minute presentation and get them a date! A fun, light-hearted and welcoming environment for all, with bites, drinks and icebreakers.",
     imageUrl: "/images/pitch-card.jpeg",
     imageAlt: "Backend Beats card background",
     slug: "pitch-a-friend-dublin",

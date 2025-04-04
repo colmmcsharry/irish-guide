@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { button as buttonStyles } from "@heroui/theme";
-import { Card, CardHeader, CardBody } from "@heroui/card";
+import { Card, CardHeader } from "@heroui/card";
 import { Image } from "@heroui/image";
 import {
   Modal,
@@ -140,38 +140,53 @@ export default function Home() {
       style={{ WebkitTapHighlightColor: "transparent" }}
       onClick={() => setSelectedEvent(card)}
     >
-      <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col lg:min-h-[400px] max-h-[400px]">
-        <CardHeader className="pb-0 pt-2 px-4 flex-col items-start flex-1">
-          <h4 className="font-bold text-large mb-2">{card.title}</h4>
-          <p className="text-small mb-2 text-default-500">{card.description}</p>
-          <div className="flex flex-col">
-            <div className="flex flex-row gap-3">
-              <p className="text-small text-default-500 flex items-center gap-1">
-                <CalendarIcon className="text-default-500 mr-1" size={16} />
-                {card.displayDate}
+      <Card className="pt-4 w-full hover:opacity-80 transition-opacity flex flex-col h-full relative">
+        <div className="flex flex-col mb-[220px] h-full">
+          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1 h-full">
+            {/* Title and description at top */}
+            <div>
+              <h4 className="font-bold text-large mb-2">{card.title}</h4>
+              <p className="text-small mb-2 text-default-500">
+                {card.description}
               </p>
-              {card.time && (
-                <p className="text-small text-default-500">{card.time}</p>
-              )}
             </div>
-            <p className="text-small text-default-500 flex items-center gap-1">
-              <LocationIcon className="text-default-500 mr-1" size={16} />
-              {card.county}
-            </p>
-            <p className="text-small text-default-500 flex items-center gap-1 mb-1">
-              <BusinessIcon className="text-default-500 mr-1" size={16} />
-              {card.company}
-            </p>
-          </div>
-        </CardHeader>
-        <CardBody className="overflow-visible p-0 pr-0 pt-2 w-full rounded-b-lg max-w-full mt-auto flex justify-end">
+
+            {/* Spacer to push the metadata to the bottom */}
+            <div className="flex-grow" />
+
+            {/* Event metadata at bottom of top section */}
+            <div className="flex flex-col mb-2 w-full">
+              <div className="flex flex-row gap-3">
+                <p className="text-small text-default-500 flex items-center gap-1">
+                  <CalendarIcon className="text-default-500 mr-1" size={16} />
+                  {card.displayDate}
+                </p>
+                {card.time && (
+                  <p className="text-small text-default-500">{card.time}</p>
+                )}
+              </div>
+              <p className="text-small text-default-500 flex items-center gap-1">
+                <LocationIcon className="text-default-500 mr-1" size={16} />
+                {card.county}
+              </p>
+              <p className="text-small text-default-500 flex items-center gap-1 mb-1">
+                <BusinessIcon className="text-default-500 mr-1" size={16} />
+                {card.company}
+              </p>
+            </div>
+          </CardHeader>
+        </div>
+
+        {/* Image absolutely positioned at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 w-full">
           <Image
             alt={card.imageAlt}
-            className="object-cover bottom-0 rounded-b-xl rounded-t-none w-full pr-0 max-h-[135px] md:min-h-[220px] md:max-h-[220px]"
+            className="object-cover w-full h-[220px] rounded-b-xl rounded-t-none"
+            height={220}
             src={card.imageUrl}
-            width="full"
+            width="100%"
           />
-        </CardBody>
+        </div>
       </Card>
     </button>
   );
